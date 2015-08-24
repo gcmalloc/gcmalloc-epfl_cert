@@ -41,19 +41,26 @@ define epfl_cert (
   $email=undef,
   $altname=[],
   $commonname=$::fqdn,
-  $state_enable=false){
+  $state_enabled=false){
 
     validate_re($server_name, '^[^.]+[.]epfl[.]ch$')
 
     if $unit != undef {
       validate_re($unit, '^[A-Z-] $')
     }
-    validate_bool($state_enable)
+
+    validate_bool($state_enabled)
+    if $state_enabled {
+      $state = 'VD'
+    } else {
+      $state = undef
+    }
 
     openssl::certificate::x509 {$server_name:
       country      => 'CH'
       organisation => 'Ecole polytechnique federale de Lausanne (EPFL)',
-      commonname   => $commonname
+      commonname   => $commonname,
+      state        => $state,
       email        => $email,
       unit         => $unit,
       cnf_tpl      => 'modules/epfl_cert'
