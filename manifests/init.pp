@@ -35,7 +35,29 @@
 #
 # Copyright 2015 Your name here, unless otherwise noted.
 #
-class epfl_cert {
+define epfl_cert (
+  $server_name=$name,
+  $unit=undef,
+  $email=undef,
+  $altname=[],
+  $commonname=$::fqdn,
+  $state_enable=false){
+
+    validate_re($server_name, '^[^.]+[.]epfl[.]ch$')
+
+    if $unit != undef {
+      validate_re($unit, '^[A-Z-] $')
+    }
+    validate_bool($state_enable)
+
+    openssl::certificate::x509 {$server_name:
+      country      => 'CH'
+      organisation => 'Ecole polytechnique federale de Lausanne (EPFL)',
+      commonname   => $commonname
+      email        => $email,
+      unit         => $unit,
+      cnf_tpl      => 'modules/epfl_cert'
+    }
 
 
 }
