@@ -1,0 +1,14 @@
+{
+  "name": "gcmalloc/epfl_cert",
+  "version": "0.1.0",
+  "author": "gcmalloc",
+  "summary": "Generate certificate for epfl",
+  "license": "Apache 2.0",
+  "source": "http://github.com/gcmalloc/epfl_cert",
+  "project_page": "https://github.com/gcmalloc/epfl_cert",
+  "issues_url": "https://github.com/gcmalloc/epfl_cert/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
