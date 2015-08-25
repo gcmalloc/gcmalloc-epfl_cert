@@ -64,6 +64,6 @@ define epfl_cert (
       state        => $state,
       email        => $email,
       unit         => $unit,
-      cnf_tpl      => 'modules/epfl_cert'
+      cnf_tpl      => 'epfl_cert/cert.cnf.erb'
     }
 }
