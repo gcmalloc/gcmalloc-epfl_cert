@@ -59,7 +59,7 @@ define epfl_cert (
 
     openssl::certificate::x509 {$server_name:
       country      => 'CH',
-      organisation => 'Ecole polytechnique federale de Lausanne (EPFL)',
+      organization => 'Ecole polytechnique federale de Lausanne (EPFL)',
       commonname   => $commonname,
       state        => $state,
       email        => $email,
