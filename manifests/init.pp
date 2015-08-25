@@ -43,7 +43,8 @@ define epfl_cert (
   $commonname=$::fqdn,
   $state_enabled=false){
 
-    validate_re($server_name, '^[^.]+[.]epfl[.]ch$')
+    validate_re($commonname, '^[^.]+[.]epfl[.]ch$')
+    validate_string($server_name)
 
     if $unit != undef {
       validate_re($unit, '^[A-Z-] $')
