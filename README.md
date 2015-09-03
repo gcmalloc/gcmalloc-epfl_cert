@@ -1,79 +1,55 @@
-# epfl_cert
-
-#### Table of Contents
-
-1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with epfl_cert](#setup)
-    * [What epfl_cert affects](#what-epfl_cert-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with epfl_cert](#beginning-with-epfl_cert)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
-
+#EPFL certificate Puppet Module
+# Class epfl_cert
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+This module generate a x509 certificate key and csr that is compatible with epfl. You would
+then need to provide the certification authority of epfl with the resulting certificate request.
+
+This request will be in `/etc/ssl/certs/${name}.csr`. The current proxy authority for the certificate
+is http://rauth.epfl.ch/.
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
+This module uses the openssl from camptocamp to generate an open ssl certificate. It 
+will try to guess the 
 
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+## Example
 
-## Setup
+To generate a simple certificate:
 
-### What epfl_cert affects
+```puppet
+epfl_cert{'gitlab':
+}
+```
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
 
-### Setup Requirements **OPTIONAL**
+## Parameters
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+# server_name
 
-### Beginning with epfl_cert
+This is the name of the certificate.
 
-The very basic steps needed for a user to get the module up and running.
+# unit
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+An optional unit name that must match `^[A-Z-] $`
 
-## Usage
+#email
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+An optional email 
 
-## Reference
+#altname
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+A list of optional alternative server name for the created certficate.
+
+# commonname
+
+The common name used in the certificate. This will default to the fqdn of the host.
+
+# state_enabled
+
+If the state should be embedded in the certificate. It will be set to VD.
+This is an optional feature that will be by default set to false
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
-
-## Development
-
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+This module supports all the os supported by the openssl module.
